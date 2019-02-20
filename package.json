@@ -27,6 +27,7 @@
   "scripts": {
     "test": "npm run eslint && NODE_ENV= npm run jest",
     "eslint": "eslint src/. test/. --config .eslintrc.json",
+    "eslint-fix": "eslint src/. test/. --config .eslintrc.json --fix",
     "dev": "nodemon src/",
     "start": "node src/",
     "jest": "jest"
@@ -39,7 +40,10 @@
     "@feathersjs/socketio": "^3.2.9",
     "compression": "^1.7.3",
     "cors": "^2.8.5",
+    "feathers-nedb": "^4.0.1",
     "helmet": "^3.15.1",
+    "joi": "^14.3.1",
+    "nedb": "^1.8.0",
     "serve-favicon": "^2.5.0",
     "winston": "^3.2.1"
   },

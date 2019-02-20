@@ -1,19 +1,20 @@
-// Application hooks that run for every service
-const log = require('./hooks/log');
+
+
+const processMessage = require('../../hooks/process-message');
 
 module.exports = {
   before: {
-    all: [ log() ],
+    all: [],
     find: [],
     get: [],
-    create: [],
+    create: [processMessage()],
     update: [],
     patch: [],
     remove: [],
   },
 
   after: {
-    all: [ log() ],
+    all: [],
     find: [],
     get: [],
     create: [],
@@ -23,7 +24,7 @@ module.exports = {
   },
 
   error: {
-    all: [ log() ],
+    all: [],
     find: [],
     get: [],
     create: [],

@@ -7,7 +7,7 @@ const getUrl = pathname => url.format({
   hostname: app.get('host') || 'localhost',
   protocol: 'http',
   port,
-  pathname
+  pathname,
 });
 
 describe('Feathers application tests (with jest)', () => {
@@ -33,8 +33,8 @@ describe('Feathers application tests (with jest)', () => {
       return rp({
         url: getUrl('path/to/nowhere'),
         headers: {
-          'Accept': 'text/html'
-        }
+          'Accept': 'text/html',
+        },
       }).catch(res => {
         expect(res.statusCode).toBe(404);
         expect(res.error.indexOf('<html>')).not.toBe(-1);
@@ -45,7 +45,7 @@ describe('Feathers application tests (with jest)', () => {
       expect.assertions(4);
       return rp({
         url: getUrl('path/to/nowhere'),
-        json: true
+        json: true,
       }).catch(res => {
         expect(res.statusCode).toBe(404);
         expect(res.error.code).toBe(404);
