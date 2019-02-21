@@ -10,11 +10,11 @@ describe('\'process-message\' hook', () => {
     app.use('/dummy', {
       async get(id) {
         return { id };
-      }
+      },
     });
 
     app.service('dummy').hooks({
-      before: processMessage()
+      before: processMessage(),
     });
   });
 

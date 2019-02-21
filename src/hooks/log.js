@@ -14,7 +14,7 @@ module.exports = function () {
     logger.debug(`${context.type} app.service('${context.path}').${context.method}()`);
 
     if(typeof context.toJSON === 'function' && logger.level === 'debug') {
-      logger.debug('Hook Context', util.inspect(context, {colors: false}));
+      logger.debug('Hook Context', util.inspect(context, { colors: false }));
     }
 
     if(context.error && !context.result) {
