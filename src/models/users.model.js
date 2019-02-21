@@ -8,5 +8,12 @@ module.exports = function (app) {
     autoload: true,
   });
 
+  // Make sure user names are unique
+  Model.ensureIndex({ fieldName: 'name', unique: true, sparse: true }, (err) => {
+    if (err !== null) {
+      throw `Error creating user name index: ${err}`;
+    }
+  });
+
   return Model;
 };

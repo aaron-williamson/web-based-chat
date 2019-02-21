@@ -1,11 +1,13 @@
 
 
+const newUser = require('../../hooks/new-user');
+
 module.exports = {
   before: {
     all: [],
     find: [],
     get: [],
-    create: [],
+    create: [newUser()],
     update: [],
     patch: [],
     remove: [],

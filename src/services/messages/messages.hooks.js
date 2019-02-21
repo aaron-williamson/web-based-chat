@@ -2,6 +2,8 @@
 
 const processMessage = require('../../hooks/process-message');
 
+const populateUser = require('../../hooks/populate-user');
+
 module.exports = {
   before: {
     all: [],
@@ -14,7 +16,7 @@ module.exports = {
   },
 
   after: {
-    all: [],
+    all: [populateUser()],
     find: [],
     get: [],
     create: [],
