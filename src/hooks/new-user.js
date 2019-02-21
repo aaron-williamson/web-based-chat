@@ -22,6 +22,9 @@ module.exports = function (options = {}) {
     const userNum = await getUserNum(app);
     data.name = `User${userNum}`;
 
+    // Assign the default color
+    data.color = 'FFFFFF';
+
     return context;
   };
 };
