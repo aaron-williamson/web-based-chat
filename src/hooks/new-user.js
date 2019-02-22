@@ -11,11 +11,18 @@ module.exports = function (options = {}) {
     const { app, data } = context;
 
     // Validate the message
-    const schema = Joi.object().keys({});
+    const schema = Joi.object().keys({
+      online: Joi.boolean(),
+    });
     const result = Joi.validate(data, schema);
 
     if (result.error !== null) {
       throw new Errors.Unprocessable('Create request should not include any information', result.error.details);
+    }
+
+    // Set the user to offline unless otherwise specified
+    if (!('online' in data)) {
+      data.online = false;
     }
 
     // Create the username

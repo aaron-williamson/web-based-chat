@@ -1,4 +1,4 @@
-
+const { disallow } = require('feathers-hooks-common');
 
 const processMessage = require('../../hooks/process-message');
 
@@ -10,9 +10,9 @@ module.exports = {
     find: [],
     get: [],
     create: [processMessage()],
-    update: [],
-    patch: [],
-    remove: [],
+    update: [disallow()],
+    patch: [disallow()],
+    remove: [disallow()],
   },
 
   after: {

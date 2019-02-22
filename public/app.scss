@@ -1,0 +1,79 @@
+html, body {
+  height: 100%;
+  margin: 0;
+}
+
+body {
+  background: white;
+  color: white;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.title {
+  font-size: 1.3em;
+  color: black;
+}
+
+.container {
+  padding: 8px;
+  display: grid;
+  height: 100%;
+  box-sizing: border-box;
+  gap: 10px;
+
+  grid-template-areas: "title title online-title"
+                       "chat chat userlist"
+                       "input input input";
+  grid-template-columns: 1fr 1fr 200px;
+  grid-template-rows: auto 1fr auto;
+
+  input {
+    grid-area: input;
+  }
+}
+
+.chat {
+  grid-area: chat;
+}
+
+.userlist {
+  grid-area: userlist;
+}
+
+.chat, .userlist {
+  display: flex;
+  flex-direction: column;
+  overflow-y: scroll;
+  background: #121212;
+  & > span {
+    padding: 5px;
+  }
+  & > :first-child {
+    margin-top: auto;
+  }
+}
+
+#chat-title {
+  grid-area: title;
+}
+
+#online-title {
+  grid-area: online-title;
+}
+
+.rounded-border {
+  border-radius: 5px;
+  border: none;
+}
+
+.user {
+  font-weight: bold;
+}
+
+.message {
+  display: flex;
+
+  .time {
+    min-width: 45px;
+  }
+}

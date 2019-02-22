@@ -1,6 +1,8 @@
-
+const { disallow } = require('feathers-hooks-common');
 
 const newUser = require('../../hooks/new-user');
+
+const processUserUpdate = require('../../hooks/process-user-update');
 
 module.exports = {
   before: {
@@ -8,9 +10,9 @@ module.exports = {
     find: [],
     get: [],
     create: [newUser()],
-    update: [],
-    patch: [],
-    remove: [],
+    update: [disallow()],
+    patch: [processUserUpdate()],
+    remove: [disallow()],
   },
 
   after: {
