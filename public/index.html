@@ -14,11 +14,15 @@
     <div class="chat rounded-border" id="chat"></div>
     <div class="title" id="online-title">Online users</div>
     <div class="userlist rounded-border" id="userlist"></div>
-    <input class="rounded-border" type="text">
+    <form class="input" id="send-message" autocomplete="off">
+      <input type="text" name="text">
+      <button type="submit">Send</button>
+    </form>
   </div>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
   <script src="https://unpkg.com/@feathersjs/client@^3.0.0/dist/feathers.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.2.0/socket.io.dev.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.2.0/socket.io.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js"></script>
   <script src="app.js"></script>
 </body>
 </html>

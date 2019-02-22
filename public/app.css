@@ -4,14 +4,14 @@ html, body {
 }
 
 body {
-  background: white;
-  color: white;
+  background: #E0E0E0;
+  color: #E0E0E0;
   font-family: Arial, Helvetica, sans-serif;
 }
 
 .title {
   font-size: 1.3em;
-  color: black;
+  color: #202020;
 }
 
 .container {
@@ -21,19 +21,12 @@ body {
   height: 100%;
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
-  gap: 10px;
+  gap: 5px;
       grid-template-areas: "title title online-title" "chat chat userlist" "input input input";
   -ms-grid-columns: 1fr 1fr 200px;
       grid-template-columns: 1fr 1fr 200px;
   -ms-grid-rows: auto 1fr auto;
       grid-template-rows: auto 1fr auto;
-}
-
-.container input {
-  -ms-grid-row: 3;
-  -ms-grid-column: 1;
-  -ms-grid-column-span: 3;
-  grid-area: input;
 }
 
 .chat {
@@ -49,6 +42,51 @@ body {
   grid-area: userlist;
 }
 
+.input {
+  -ms-grid-row: 3;
+  -ms-grid-column: 1;
+  -ms-grid-column-span: 3;
+  grid-area: input;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.input button {
+  background: #3777E6;
+  color: #E0E0E0;
+  border: solid #B0B0B0 2px;
+  font-size: 1.2em;
+  padding: 5px;
+  border-radius: 0 5px 5px 0;
+}
+
+.input button:active {
+  background: #E0E0E0;
+  color: #3777E6;
+}
+
+.input button:focus {
+  outline: none;
+}
+
+.input input {
+  -webkit-box-flex: 1;
+      -ms-flex-positive: 1;
+          flex-grow: 1;
+  width: auto;
+  border: none;
+  border-radius: 5px 0 0 5px;
+  font-size: 1.2em;
+  background: #B0B0B0;
+  color: #151515;
+  padding: 5px;
+}
+
+.input input:focus {
+  outline: none;
+}
+
 .chat, .userlist {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -57,11 +95,16 @@ body {
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
           flex-direction: column;
+  -ms-flex-flow: column nowrap;
+      flex-flow: column nowrap;
   overflow-y: scroll;
-  background: #121212;
+  background: #151515;
 }
 
 .chat > span, .userlist > span {
+  -ms-flex-negative: 0;
+      flex-shrink: 0;
+  font-size: 1.2em;
   padding: 5px;
 }
 
@@ -98,6 +141,11 @@ body {
 }
 
 .message .time {
-  min-width: 45px;
+  min-width: 55px;
+  margin-right: 3px;
+}
+
+.system-message {
+  color: #505050;
 }
 /*# sourceMappingURL=app.css.map */

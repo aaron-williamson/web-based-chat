@@ -1,17 +1,35 @@
+// Thanks to https://github.com/cscorley/base16-summerfruit-scheme for the color scheme
+$base00: #151515;
+$base01: #202020;
+$base02: #303030;
+$base03: #505050;
+$base04: #B0B0B0;
+$base05: #D0D0D0;
+$base06: #E0E0E0;
+$base07: #FFFFFF;
+$base08: #FF0086;
+$base09: #FD8900;
+$base0A: #ABA800;
+$base0B: #00C918;
+$base0C: #1FAAAA;
+$base0D: #3777E6;
+$base0E: #AD00A1;
+$base0F: #CC6633;
+
 html, body {
   height: 100%;
   margin: 0;
 }
 
 body {
-  background: white;
-  color: white;
+  background: $base06;
+  color: $base06;
   font-family: Arial, Helvetica, sans-serif;
 }
 
 .title {
   font-size: 1.3em;
-  color: black;
+  color: $base01;
 }
 
 .container {
@@ -19,17 +37,14 @@ body {
   display: grid;
   height: 100%;
   box-sizing: border-box;
-  gap: 10px;
+  gap: 5px;
 
-  grid-template-areas: "title title online-title"
-                       "chat chat userlist"
-                       "input input input";
+  grid-template-areas:
+    "title title online-title"
+    "chat chat userlist"
+    "input input input";
   grid-template-columns: 1fr 1fr 200px;
   grid-template-rows: auto 1fr auto;
-
-  input {
-    grid-area: input;
-  }
 }
 
 .chat {
@@ -40,12 +55,54 @@ body {
   grid-area: userlist;
 }
 
+.input {
+  grid-area: input;
+
+  display: flex;
+
+  button {
+    background: $base0D;
+    color: $base06;
+    border: solid $base04 2px;
+    font-size: 1.2em;
+    padding: 5px;
+    border-radius: 0 5px 5px 0;
+  }
+
+  button:active {
+    background: $base06;
+    color: $base0D;
+  }
+
+  button:focus {
+    outline: none;
+  }
+
+  input {
+    flex-grow: 1;
+    width: auto;
+    border: none;
+    border-radius: 5px 0 0 5px;
+    font-size: 1.2em;
+    background: $base04;
+    color: $base00;
+    padding: 5px;
+  }
+
+  input:focus {
+    outline: none;
+  }
+}
+
 .chat, .userlist {
   display: flex;
   flex-direction: column;
+  flex-flow: column nowrap;
   overflow-y: scroll;
-  background: #121212;
+  background: $base00;
   & > span {
+    flex-shrink: 0;
+    font-size: 1.2em;
     padding: 5px;
   }
   & > :first-child {
@@ -74,6 +131,11 @@ body {
   display: flex;
 
   .time {
-    min-width: 45px;
+    min-width: 55px;
+    margin-right: 3px;
   }
+}
+
+.system-message {
+  color: $base03;
 }
