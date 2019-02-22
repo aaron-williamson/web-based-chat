@@ -36,6 +36,8 @@ const setup = async () => {
 
   window.addEventListener('beforeunload', leavePage);
   addSystemMessage(`Welcome to the chat! You are ${user.name}.`);
+
+  document.getElementById('toggle-userlist').addEventListener('click', toggleUserList);
 };
 
 let user;
@@ -229,6 +231,26 @@ function addSystemMessage(messageText) {
   const messageHTML = `<span class="message system-message">${messageText}</span>`;
   chat.insertAdjacentHTML('beforeend', messageHTML);
   scrollToBottom(chat);
+}
+
+function toggleUserList() {
+  const userlist = document.getElementById('userlist');
+  const arrow = document.querySelector('#toggle-userlist > i');
+  const button = document.getElementById('toggle-userlist');
+
+  if (userlist.classList.contains('mobile-hidden')) {
+    userlist.classList.remove('mobile-hidden');
+    arrow.classList.remove('left');
+    button.classList.remove('padding-arrow-left');
+    arrow.classList.add('right');
+    button.classList.add('padding-arrow-right');
+  } else {
+    userlist.classList.add('mobile-hidden');
+    arrow.classList.remove('right');
+    button.classList.remove('padding-arrow-right');
+    arrow.classList.add('left');
+    button.classList.add('padding-arrow-left');
+  }
 }
 
 setup();

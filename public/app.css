@@ -148,4 +148,74 @@ body {
 .system-message {
   color: #505050;
 }
+
+#toggle-userlist {
+  display: none;
+  background: #E0E0E0;
+  grid-area: toggle-userlist;
+  -ms-grid-column-align: end;
+      justify-self: end;
+  border: none;
+  border-radius: 5px;
+}
+
+.padding-arrow-left {
+  padding: 5px 6px 5px 9px;
+}
+
+.padding-arrow-right {
+  padding: 5px 9px 5px 6px;
+}
+
+#toggle-userlist:active {
+  background: #505050;
+}
+
+#toggle-userlist:active > .arrow {
+  border-color: #E0E0E0;
+}
+
+#toggle-userlist:focus {
+  outline: none;
+}
+
+.arrow {
+  border: solid #151515;
+  border-width: 0 3px 3px 0;
+  display: inline-block;
+  padding: 3px;
+}
+
+.left {
+  -webkit-transform: rotate(135deg);
+          transform: rotate(135deg);
+}
+
+.right {
+  -webkit-transform: rotate(-45deg);
+          transform: rotate(-45deg);
+}
+
+@media screen and (max-width: 800px) {
+  .container {
+        grid-template-areas: "title title toggle-userlist" "chat chat chat" "input input input";
+  }
+  .userlist {
+    position: absolute;
+    right: 8px;
+    top: 37px;
+    width: 200px;
+    height: calc(100vh - 46px - 45px);
+    border: 2px solid #B0B0B0;
+  }
+  #online-title {
+    display: none;
+  }
+  #toggle-userlist {
+    display: inline;
+  }
+  .mobile-hidden {
+    display: none;
+  }
+}
 /*# sourceMappingURL=app.css.map */

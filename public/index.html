@@ -13,9 +13,10 @@
     <div class="title" id="chat-title">You are not signed in</div>
     <div class="chat rounded-border" id="chat"></div>
     <div class="title" id="online-title">Online users</div>
-    <div class="userlist rounded-border" id="userlist"></div>
+    <button id="toggle-userlist" class="padding-arrow-left"><i class="arrow left"></i></button>
+    <div class="userlist rounded-border mobile-hidden" id="userlist"></div>
     <form class="input" id="send-message" autocomplete="off">
-      <input type="text" name="text">
+      <input type="text" name="text" autofocus>
       <button type="submit">Send</button>
     </form>
   </div>

@@ -139,3 +139,77 @@ body {
 .system-message {
   color: $base03;
 }
+
+#toggle-userlist {
+  display: none;
+  background: $base06;
+  grid-area: toggle-userlist;
+  justify-self: end;
+  border: none;
+  border-radius: 5px;
+}
+
+.padding-arrow-left {
+  padding: 5px 6px 5px 9px;
+}
+
+.padding-arrow-right {
+  padding: 5px 9px 5px 6px;
+}
+
+#toggle-userlist:active {
+  background: $base03;
+
+  > .arrow {
+    border-color: $base06;
+  }
+}
+
+#toggle-userlist:focus {
+  outline: none;
+}
+
+.arrow {
+  border: solid $base00;
+  border-width: 0 3px 3px 0;
+  display: inline-block;
+  padding: 3px;
+}
+
+.left {
+  transform: rotate(135deg);
+}
+
+.right {
+  transform: rotate(-45deg);
+}
+
+@media screen and (max-width: 800px) {
+  .container {
+    grid-template-areas:
+      "title title toggle-userlist"
+      "chat chat chat"
+      "input input input";
+  }
+
+  .userlist {
+    position: absolute;
+    right: 8px;
+    top: 37px;
+    width: 200px;
+    height: calc(100vh - 46px - 45px);
+    border: 2px solid $base04;
+  }
+
+  #online-title {
+    display: none;
+  }
+
+  #toggle-userlist {
+    display: inline;
+  }
+
+  .mobile-hidden {
+    display: none;
+  }
+}

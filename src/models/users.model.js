@@ -5,14 +5,20 @@ module.exports = function (app) {
   const dbPath = app.get('nedb');
   const Model = new NeDB({
     filename: path.join(dbPath, 'users.db'),
-    autoload: true,
   });
 
-  // Make sure user names are unique
-  Model.ensureIndex({ fieldName: 'name', unique: true, sparse: true }, (err) => {
+  // Manually load the database so we don't call ensureIndex before the DB is loaded
+  Model.loadDatabase(err => {
     if (err !== null) {
-      throw `Error creating user name index: ${err}`;
+      throw err;
     }
+
+    // Make sure user names are unique
+    Model.ensureIndex({ fieldName: 'name', unique: true, sparse: true }, (err) => {
+      if (err !== null) {
+        throw `Error creating user name index: ${err}`;
+      }
+    });
   });
 
   return Model;
