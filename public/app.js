@@ -1,6 +1,6 @@
 /* eslint-disable no-undef */
 // Establish a socket.io connection
-const socket = io('http://localhost:3030');
+const socket = io();
 
 // Initialize the feathers client through socket.io
 const client = feathers();
