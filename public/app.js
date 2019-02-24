@@ -70,7 +70,8 @@ const setUser = newUser => {
   user = newUser;
   const title = document.getElementById('chat-title');
   title.innerHTML = 'You are ' + user.name;
-  Cookies.set('chat_user', newUser._id);
+  // Cookie stores user and expires in 1 day
+  Cookies.set('chat_user', newUser._id, { expires: 1 });
 };
 
 // Handle submitting a new message
