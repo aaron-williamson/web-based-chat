@@ -1,4 +1,6 @@
 /* eslint-disable no-undef */
+// ESLint doesn't pick up on the imports from HTML so disable it here
+
 // Establish a socket.io connection
 const socket = io();
 
@@ -6,6 +8,10 @@ const socket = io();
 const client = feathers();
 client.configure(feathers.socketio(socket));
 
+// Global variable to store the current user in
+let user;
+
+// Function to perform web application setup
 const setup = async () => {
   await getOrSetUser();
   document.addEventListener('submit', handleSubmit);
@@ -40,8 +46,7 @@ const setup = async () => {
   document.getElementById('toggle-userlist').addEventListener('click', toggleUserList);
 };
 
-let user;
-
+// Either set an existing user stored in the chat_user cookie or get a new user
 const getOrSetUser = async () => {
   const cookieUser = Cookies.get('chat_user');
 
@@ -60,6 +65,7 @@ const getOrSetUser = async () => {
   }
 };
 
+// Set the current user
 const setUser = newUser => {
   user = newUser;
   const title = document.getElementById('chat-title');
@@ -67,6 +73,7 @@ const setUser = newUser => {
   Cookies.set('chat_user', newUser._id);
 };
 
+// Handle submitting a new message
 const handleSubmit = async event => {
   // Return if we're not sending a message
   if (event.target.id !== 'send-message') {
@@ -91,14 +98,16 @@ const handleSubmit = async event => {
   input.value = '';
 };
 
+// Handle a new message
 const addMessage = message => {
   const chat = document.getElementById('chat');
   const time = moment(message.createdAt).format('HH:mm');
+  const longTime = moment(message.createdAt).format();
   const sender = message.user;
   const isUser = usersEqual(sender, user) ? 'user' : '';
 
   const messageHTML = `<span class="message ${isUser}">
-        <span class="time">${time}</span>
+        <span class="time" title="${longTime}">${time}</span>
         <span class="text">
           <span style="color: #${sender.color}">${sender.name}</span>: ${message.text}
         </span>
@@ -107,6 +116,7 @@ const addMessage = message => {
   scrollToBottom(chat);
 };
 
+// Handle a new user or a modified user, optionally showing a join message from the system
 const handleUser = (newUser, showJoinMessage = false) => {
   if (!newUser.online) {
     removeUser(newUser);
@@ -141,11 +151,13 @@ const handleUser = (newUser, showJoinMessage = false) => {
   scrollToBottom(userlist);
 };
 
+// Executed upon leaving the page, used for "logging off"
 const leavePage = async () => {
   // Set user as offline when leaving page
   socket.emit('patch', 'users', user._id, { online: false }, () => { /* Noop */ });
 };
 
+// Handle input as a command instead of a message if it starts with '/'
 const handleCommands = async text => {
   // Return if it's not a command
   if (text[0] !== '/') {
@@ -206,14 +218,17 @@ const handleCommands = async text => {
   return true;
 };
 
+// Compare two users
 function usersEqual(u1, u2) {
   return u1._id === u2._id;
 }
 
+// Scroll to the bottom of the given element
 function scrollToBottom(element) {
   element.scrollTop = element.scrollHeight;
 }
 
+// Remove a user from the userlist, show a 'has left the chat' message
 function removeUser(maybeUser) {
   const user = document.getElementById(maybeUser._id);
   if (user !== null) {
@@ -225,6 +240,7 @@ function removeUser(maybeUser) {
   }
 }
 
+// Add a message from the system
 function addSystemMessage(messageText) {
   const chat = document.getElementById('chat');
 
@@ -233,6 +249,7 @@ function addSystemMessage(messageText) {
   scrollToBottom(chat);
 }
 
+// Toggle the userlist for mobile UI
 function toggleUserList() {
   const userlist = document.getElementById('userlist');
   const arrow = document.querySelector('#toggle-userlist > i');
@@ -253,4 +270,5 @@ function toggleUserList() {
   }
 }
 
+// After declaring all the functions, finally set up the application
 setup();

@@ -1,3 +1,8 @@
+html {
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+}
+
 html, body {
   height: 100%;
   margin: 0;
@@ -198,14 +203,16 @@ body {
 
 @media screen and (max-width: 800px) {
   .container {
-        grid-template-areas: "title title toggle-userlist" "chat chat chat" "input input input";
+        grid-template-areas: "title toggle-userlist" "chat chat" "input input";
+    -ms-grid-columns: 1fr 30px;
+        grid-template-columns: 1fr 30px;
   }
   .userlist {
     position: absolute;
     right: 8px;
-    top: 37px;
+    top: 38px;
     width: 200px;
-    height: calc(100vh - 46px - 45px);
+    height: calc(100vh - 46px - 46px);
     border: 2px solid #B0B0B0;
   }
   #online-title {

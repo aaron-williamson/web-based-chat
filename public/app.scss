@@ -16,6 +16,11 @@ $base0D: #3777E6;
 $base0E: #AD00A1;
 $base0F: #CC6633;
 
+html {
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+}
+
 html, body {
   height: 100%;
   margin: 0;
@@ -187,17 +192,18 @@ body {
 @media screen and (max-width: 800px) {
   .container {
     grid-template-areas:
-      "title title toggle-userlist"
-      "chat chat chat"
-      "input input input";
+      "title toggle-userlist"
+      "chat chat"
+      "input input";
+    grid-template-columns: 1fr 30px;
   }
 
   .userlist {
     position: absolute;
     right: 8px;
-    top: 37px;
+    top: 38px;
     width: 200px;
-    height: calc(100vh - 46px - 45px);
+    height: calc(100vh - 46px - 46px);
     border: 2px solid $base04;
   }
 
