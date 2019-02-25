@@ -53,14 +53,13 @@ const getOrSetUser = async () => {
   // If there is no user cookie, create a new user
   if (cookieUser === undefined) {
     setUser(await client.service('users').create({}));
-    return;
-  }
-
-  try { // Try to get the previous user
-    const previousUser = await client.service('users').get(cookieUser);
-    setUser(previousUser);
-  } catch (e) { // If the previous user fails, create a new user
-    setUser(await client.service('users').create({}));
+  } else {
+    try { // Try to get the previous user
+      const previousUser = await client.service('users').get(cookieUser);
+      setUser(previousUser);
+    } catch (e) { // If the previous user fails, create a new user
+      setUser(await client.service('users').create({}));
+    }
   }
 
   // Tell the server we're online
