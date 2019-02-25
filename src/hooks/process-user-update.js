@@ -12,7 +12,10 @@ module.exports = function (options = {}) {
     const schema = Joi.object().keys({
       color: Joi.string().regex(/^[A-F0-9]{6}$/),
       name: Joi.string().min(1).max(32),
-      online: Joi.boolean(),
+      onlineCount: Joi.number().integer().min(0),
+      $inc: Joi.object().keys({
+        onlineCount: Joi.number().integer().not(0),
+      }),
     });
     const result = Joi.validate(data, schema);
 

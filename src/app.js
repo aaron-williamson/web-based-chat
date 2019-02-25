@@ -32,7 +32,24 @@ app.use('/', express.static(app.get('public')));
 
 // Set up Plugins and providers
 app.configure(express.rest());
-app.configure(socketio());
+app.configure(socketio(io => {
+  io.on('connection', socket => {
+    // A login function, although there's no formal authentication
+    socket.on('login', userId => {
+      socket.userId = userId;
+
+      // Online count keeps track of how many times the user has logged in, this ensures a
+      // user that logs in with two separate windows isn't shown as offline when they log
+      // off in only one of those windows
+      app.service('users').patch(userId, { $inc: { onlineCount: 1 } });
+    });
+
+    // Set a user to offline when they disconnect
+    socket.on('disconnect', () => {
+      app.service('users').patch(socket.userId, { $inc: { onlineCount: -1 } });
+    });
+  });
+}));
 
 // Configure other middleware (see `middleware/index.js`)
 app.configure(middleware);

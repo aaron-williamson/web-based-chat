@@ -11,26 +11,24 @@ module.exports = function (options = {}) {
     const { app, data } = context;
 
     // Validate the message
-    const schema = Joi.object().keys({
-      online: Joi.boolean(),
-    });
+    const schema = Joi.object().keys({});
     const result = Joi.validate(data, schema);
 
     if (result.error !== null) {
       throw new Errors.Unprocessable('Create request should not include any information', result.error.details);
     }
 
-    // Set the user to offline unless otherwise specified
-    if (!('online' in data)) {
-      data.online = false;
-    }
+    // Set the user to offline by default
+    result.value.onlineCount = 0;
 
     // Create the username
     const userNum = await getUserNum(app);
-    data.name = `User${userNum}`;
+    result.value.name = `User${userNum}`;
 
     // Assign the default color
-    data.color = 'FFFFFF';
+    result.value.color = 'FFFFFF';
+
+    context.data = result.value;
 
     return context;
   };

@@ -34,7 +34,7 @@ const setup = async () => {
       _id: {
         $ne: '__usernum__',
       },
-      online: true,
+      onlineCount: { $gt: 0 },
       $limit: 200,
     },
   });
@@ -52,17 +52,19 @@ const getOrSetUser = async () => {
 
   // If there is no user cookie, create a new user
   if (cookieUser === undefined) {
-    setUser(await client.service('users').create({ online: true }));
+    setUser(await client.service('users').create({}));
     return;
   }
 
   try { // Try to get the previous user
     const previousUser = await client.service('users').get(cookieUser);
     setUser(previousUser);
-    await client.service('users').patch(user._id, { online: true });
   } catch (e) { // If the previous user fails, create a new user
-    setUser(await client.service('users').create({ online: true }));
+    setUser(await client.service('users').create({}));
   }
+
+  // Tell the server we're online
+  socket.emit('login', user._id);
 };
 
 // Set the current user
@@ -70,6 +72,7 @@ const setUser = newUser => {
   user = newUser;
   const title = document.getElementById('chat-title');
   title.innerHTML = 'You are ' + user.name;
+
   // Cookie stores user and expires in 1 day
   Cookies.set('chat_user', newUser._id, { expires: 1 });
 };
@@ -119,7 +122,7 @@ const addMessage = message => {
 
 // Handle a new user or a modified user, optionally showing a join message from the system
 const handleUser = (newUser, showJoinMessage = false) => {
-  if (!newUser.online) {
+  if (newUser.onlineCount < 1) {
     removeUser(newUser);
     return;
   }
@@ -145,7 +148,7 @@ const handleUser = (newUser, showJoinMessage = false) => {
   } else {
     userlist.insertAdjacentHTML('beforeend', userHTML);
 
-    if (showJoinMessage) {
+    if (showJoinMessage && newUser._id != user._id) {
       addSystemMessage(`${newUser.name} has joined the chat.`);
     }
   }
@@ -154,8 +157,8 @@ const handleUser = (newUser, showJoinMessage = false) => {
 
 // Executed upon leaving the page, used for "logging off"
 const leavePage = async () => {
-  // Set user as offline when leaving page
-  socket.emit('patch', 'users', user._id, { online: false }, () => { /* Noop */ });
+  // Try to gracefully close the socket
+  socket.disconnect();
 };
 
 // Handle input as a command instead of a message if it starts with '/'
@@ -235,7 +238,7 @@ function removeUser(maybeUser) {
   if (user !== null) {
     user.remove();
 
-    if (!user.online) {
+    if (maybeUser.onlineCount < 1) {
       addSystemMessage(`${maybeUser.name} has left the chat.`);
     }
   }
