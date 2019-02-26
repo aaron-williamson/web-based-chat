@@ -10,10 +10,12 @@
 </head>
 <body>
   <div class="container">
-    <div class="title" id="chat-title">You are not signed in</div>
+    <div class="title">
+      <div id="chat-title">You are not signed in</div>
+      <div id="online-title">Online users</div>
+      <button id="toggle-userlist" class="padding-arrow-left"><i class="arrow left"></i></button>
+    </div>
     <div class="chat rounded-border" id="chat"></div>
-    <div class="title" id="online-title">Online users</div>
-    <button id="toggle-userlist" class="padding-arrow-left"><i class="arrow left"></i></button>
     <div class="userlist rounded-border mobile-hidden" id="userlist"></div>
     <form class="input" id="send-message" autocomplete="off">
       <input type="text" name="text" autofocus size="1">

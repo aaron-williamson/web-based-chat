@@ -34,6 +34,8 @@ body {
 }
 
 .title {
+  grid-area: title;
+  display: flex;
   font-size: 1.3em;
   color: $base01;
 }
@@ -46,7 +48,7 @@ body {
   gap: 5px;
 
   grid-template-areas:
-    "title title online-title"
+    "title title title"
     "chat chat userlist"
     "input input input";
   grid-template-columns: 1fr 1fr 200px;
@@ -117,11 +119,11 @@ body {
 }
 
 #chat-title {
-  grid-area: title;
+  margin-right: auto;
 }
 
 #online-title {
-  grid-area: online-title;
+  width: 200px;
 }
 
 .rounded-border {
@@ -193,18 +195,15 @@ body {
 @media screen and (max-width: 800px) {
   .container {
     grid-template-areas:
-      "title toggle-userlist"
-      "chat chat"
-      "input input";
-    grid-template-columns: 1fr 30px;
+      "title title title"
+      "chat chat chat"
+      "input input input";
+    grid-template-columns: 1fr 1fr 200px;
   }
 
   .userlist {
-    position: absolute;
-    right: 8px;
-    top: 38px;
-    width: 200px;
-    height: calc(100vh - 46px - 46px);
+    grid-column: 3 / 4;
+    grid-row: 2 / 3;
     border: 2px solid $base04;
   }
 

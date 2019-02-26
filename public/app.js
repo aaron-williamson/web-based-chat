@@ -44,6 +44,10 @@ const setup = async () => {
   addSystemMessage(`Welcome to the chat! You are ${user.name}.`);
 
   document.getElementById('toggle-userlist').addEventListener('click', toggleUserList);
+
+  socket.on('reconnect', () => {
+    emitLogin();
+  });
 };
 
 // Either set an existing user stored in the chat_user cookie or get a new user
@@ -63,7 +67,7 @@ const getOrSetUser = async () => {
   }
 
   // Tell the server we're online
-  socket.emit('login', user._id);
+  emitLogin();
 };
 
 // Set the current user
@@ -219,6 +223,11 @@ const handleCommands = async text => {
   }
 
   return true;
+};
+
+// Tell the server we have logged in
+const emitLogin = () => {
+  socket.emit('login', user._id);
 };
 
 // Compare two users

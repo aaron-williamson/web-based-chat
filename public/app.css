@@ -17,6 +17,13 @@ body {
 }
 
 .title {
+  -ms-grid-row: 1;
+  -ms-grid-column: 1;
+  -ms-grid-column-span: 3;
+  grid-area: title;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
   font-size: 1.3em;
   color: #202020;
 }
@@ -29,7 +36,7 @@ body {
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
   gap: 5px;
-      grid-template-areas: "title title online-title" "chat chat userlist" "input input input";
+      grid-template-areas: "title title title" "chat chat userlist" "input input input";
   -ms-grid-columns: 1fr 1fr 200px;
       grid-template-columns: 1fr 1fr 200px;
   -ms-grid-rows: auto 1fr auto;
@@ -120,16 +127,11 @@ body {
 }
 
 #chat-title {
-  -ms-grid-row: 1;
-  -ms-grid-column: 1;
-  -ms-grid-column-span: 2;
-  grid-area: title;
+  margin-right: auto;
 }
 
 #online-title {
-  -ms-grid-row: 1;
-  -ms-grid-column: 3;
-  grid-area: online-title;
+  width: 200px;
 }
 
 .rounded-border {
@@ -205,16 +207,17 @@ body {
 
 @media screen and (max-width: 800px) {
   .container {
-        grid-template-areas: "title toggle-userlist" "chat chat" "input input";
-    -ms-grid-columns: 1fr 30px;
-        grid-template-columns: 1fr 30px;
+        grid-template-areas: "title title title" "chat chat chat" "input input input";
+    -ms-grid-columns: 1fr 1fr 200px;
+        grid-template-columns: 1fr 1fr 200px;
   }
   .userlist {
-    position: absolute;
-    right: 8px;
-    top: 38px;
-    width: 200px;
-    height: calc(100vh - 46px - 46px);
+    -ms-grid-column: 3;
+    -ms-grid-column-span: 1;
+    grid-column: 3 / 4;
+    -ms-grid-row: 2;
+    -ms-grid-row-span: 1;
+    grid-row: 2 / 3;
     border: 2px solid #B0B0B0;
   }
   #online-title {
