@@ -40,14 +40,25 @@ const setup = async () => {
   });
   users.data.forEach(user => handleUser(user, false));
 
+  // Logout on page leave
   window.addEventListener('beforeunload', leavePage);
-  addSystemMessage(`Welcome to the chat! You are ${user.name}.`);
 
+  // Add listener to the userlist toggle button
   document.getElementById('toggle-userlist').addEventListener('click', toggleUserList);
 
+  // Make sure to log back in on reconnect
   socket.on('reconnect', () => {
     emitLogin();
   });
+
+  // Scroll to bottom on window resize
+  window.addEventListener('resize', () => {
+    scrollToBottom(document.getElementById('chat'));
+    scrollToBottom(document.getElementById('userlist'));
+  });
+
+  // Greet the user with a system message
+  addSystemMessage(`Welcome to the chat! You are ${user.name}.`);
 };
 
 // Either set an existing user stored in the chat_user cookie or get a new user
