@@ -22,8 +22,13 @@ module.exports = function (options = {}) {
     result.value.onlineCount = 0;
 
     // Create the username
-    const userNum = await getUserNum(app);
-    result.value.name = `User${userNum}`;
+    let userExists = false;
+    do { // If name 'User${userNum{' is taken, keep trying
+      const userNum = await getUserNum(app);
+      result.value.name = `User${userNum}`;
+      const queryResult = await app.service('users').find({ query: { name: result.value.name } });
+      userExists = queryResult.total > 0;
+    } while (userExists);
 
     // Assign the default color
     result.value.color = 'FFFFFF';
